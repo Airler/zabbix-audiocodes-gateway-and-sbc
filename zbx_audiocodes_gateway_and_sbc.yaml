@@ -1,0 +1,606 @@
+zabbix_export:
+  version: '6.4'
+  template_groups:
+    - uuid: 1d12408342854fd5a4436dd6d5d1bd4a
+      name: Templates/Telephony
+  templates:
+    - uuid: c90d038e03774ac089afb0292a88a18e
+      template: 'AudioCodes Gateway and SBC'
+      name: 'AudioCodes Gateway and SBC'
+      vendor:
+        name: Airler
+        version: 6.4-0
+      templates:
+        - name: 'Generic by SNMP'
+      groups:
+        - name: Templates/Telephony
+      items:
+        - uuid: 470bdcb7352b4819bf1ecc7c5a78b5da
+          name: 'CPU Utilization'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.2.4.1.2.1.1.2
+          key: acKpiCpuStatsCurrentCpuCpuUtilization
+          delay: 30s
+          history: 2w
+          status: DISABLED
+          units: '%'
+          description: 'CPU utilization (%)'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: component
+              value: system
+        - uuid: 77bc8d5fc11f4b5bba683fe5535079dd
+          name: 'Active Calls'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.4.1.1.2.1.1.32
+          key: acKpiGatewayCallStatsCurrentGlobalActiveCalls
+          delay: 30s
+          history: 2w
+          status: DISABLED
+          description: 'Number of active calls'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: Application
+              value: General
+        - uuid: c82662b21d544a8882746a8a06baf17e
+          name: 'Active Calls IP 2 Tel'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.4.1.1.1.30
+          key: acKpiGatewayCallStatsCurrentGlobalActiveCallsIp2Tel
+          delay: 30s
+          history: 2w
+          status: DISABLED
+          description: 'Number of active IP->Tel calls'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: Application
+              value: General
+        - uuid: 9fc40375017b49ce9d1c5b54c25eb2af
+          name: 'Active Calls Tel 2 IP'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.4.1.1.1.29
+          key: acKpiGatewayCallStatsCurrentGlobalActiveCallsTel2Ip
+          delay: 30s
+          history: 2w
+          status: DISABLED
+          description: 'Number of active Tel->IP calls'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: Application
+              value: General
+        - uuid: 908e1fe2b53248bb8e7b852e4307dd94
+          name: 'Active Calls (trunkGroup)'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.4.1.1.2.2.1.32
+          key: acKpiGatewayCallStatsCurrentTrunkGroupActiveCalls
+          delay: 30s
+          history: 2w
+          status: DISABLED
+          description: 'Number of active calls'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: Application
+              value: General
+        - uuid: 9d27ef943a9341c1a5497fc6831fabd2
+          name: 'Active Calls IP 2 Tel (trunkGroup)'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.4.1.1.2.2.1.31
+          key: acKpiGatewayCallStatsCurrentTrunkGroupActiveCallsIp2Tel
+          delay: 30s
+          history: 2w
+          status: DISABLED
+          description: 'Number of active IP->Tel calls'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: Application
+              value: General
+        - uuid: a83f6c2f88f04168897b38f16550cb76
+          name: 'Active Calls Tel 2 IP (trunkGroup)'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.4.1.1.2.2.1.30
+          key: acKpiGatewayCallStatsCurrentTrunkGroupActiveCallsTel2Ip
+          delay: 30s
+          history: 2w
+          status: DISABLED
+          description: 'Number of active Tel->IP calls'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: Application
+              value: General
+        - uuid: 7daebf7afb6644d5bc3f06e7e81d0400
+          name: 'HA Active Packet Loss'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.6.2.1.1.2
+          key: acKpiHaStatsCurrentGlobalHaActivePacketLoss
+          history: 2w
+          status: DISABLED
+          units: '%'
+          description: 'Percent of HA KA packets lost by Active unit (in 0.01%)'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: Application
+              value: HA
+            - tag: component
+              value: health
+        - uuid: 6e61ede141d446f099919348839e493d
+          name: 'HA Redundant Packet Loss'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.6.2.1.1.1
+          key: acKpiHaStatsCurrentGlobalHaRedundantPacketLoss
+          history: 2w
+          status: DISABLED
+          units: '%'
+          description: 'Percent of HA KA packets lost by Redundant unit (in 0.01%)'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: Application
+              value: HA
+            - tag: component
+              value: health
+        - uuid: ab1db3857c3642c18d2047f8ef816ed7
+          name: 'HA Active Packet Loss Avg'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.6.2.2.1.1.1.5
+          key: acKpiHaStatsIntervalGlobalHaActivePacketLossAvg
+          delay: 15m
+          history: 2w
+          status: DISABLED
+          units: '%'
+          description: 'Average percent of HA KA packets lost by Active unit (in 0.01%)'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: Application
+              value: HA
+            - tag: component
+              value: health
+        - uuid: 6eaae7a39dba47dc9011670c8138743d
+          name: 'HA Active Packet Loss Max'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.6.2.2.1.1.1.4
+          key: acKpiHaStatsIntervalGlobalHaActivePacketLossMax
+          delay: 15m
+          history: 2w
+          status: DISABLED
+          units: '%'
+          description: 'Maximum percent of HA KA packets lost by Active unit (in 0.01%)'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: Application
+              value: HA
+            - tag: component
+              value: health
+        - uuid: 6551ba6badcf46b6aa5be7fdc00ff200
+          name: 'HA Redundant Packet Loss Avg'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.6.2.2.1.1.1.3
+          key: acKpiHaStatsIntervalGlobalHaRedundantPacketLossAvg
+          delay: 15m
+          history: 2w
+          status: DISABLED
+          units: '%'
+          description: 'Average percent of HA KA packets lost by Redundant unit (in 0.01%)'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: Application
+              value: HA
+            - tag: component
+              value: health
+        - uuid: 8ac4264ac2f64cd19543eafe19b53e2d
+          name: 'HA Redundant Packet Loss Max'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.6.2.2.1.1.1.2
+          key: acKpiHaStatsIntervalGlobalHaRedundantPacketLossMax
+          delay: 15m
+          history: 2w
+          status: DISABLED
+          units: '%'
+          description: 'Maximum percent of HA KA packets lost by Redundant unit (in 0.01%)'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: Application
+              value: HA
+            - tag: component
+              value: health
+        - uuid: 16d12815d33e477d90b513ada8df28e9
+          name: 'Abnormal Terminated Calls In Total'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.5003.15.3.1.1.1.35
+          key: acKpiSbcCallStatsCurrentGlobalAbnormalTerminatedCallsInTotal
+          delay: 30s
+          history: 2w
+          status: DISABLED
+          description: 'Total number of abnormally terminated inbound calls (after connect)'
+          preprocessing:
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          tags:
+            - tag: Application
+              value: General
+            - tag: component
+              value: health
+        - uuid: 0b00cb0ba6cc42b2bc0c5c675f61fa95
+          name: 'Audiocodes REST API - Alarms'
+          type: HTTP_AGENT
+          key: audiocodes.api.alarms
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          authtype: BASIC
+          username: '{$AUDIOCODES_USER}'
+          password: '{$AUDIOCODES_PASSWORD}'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.alarms
+            - type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+          url: 'https://{HOST.CONN}/api/v1/alarms/active'
+          status_codes: '200,204'
+          tags:
+            - tag: component
+              value: health
+            - tag: component
+              value: raw
+          triggers:
+            - uuid: 498a4b28b9184f638dbed225473aca76
+              expression: 'nodata(/AudioCodes Gateway and SBC/audiocodes.api.alarms,5m)=0'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'nodata(/AudioCodes Gateway and SBC/audiocodes.api.alarms,5m)=1'
+              name: 'Active Alarm'
+              priority: HIGH
+              manual_close: 'YES'
+              dependencies:
+                - name: 'Certificate expires soon'
+                  expression: 'last(/AudioCodes Gateway and SBC/audiocodes.api.alarms.cert_expiry) <= {$CERT.EXPIRY.WARN}'
+                - name: 'Certificate expires soon'
+                  expression: 'last(/AudioCodes Gateway and SBC/audiocodes.api.alarms.cert_expiry) > 0'
+              tags:
+                - tag: scope
+                  value: availability
+                - tag: scope
+                  value: performance
+        - uuid: f9ab35b7ccda44409e75a4b9203a48bb
+          name: 'Certificate expiry alarm'
+          type: DEPENDENT
+          key: audiocodes.api.alarms.cert_expiry
+          delay: '0'
+          history: 1w
+          value_type: FLOAT
+          preprocessing:
+            - type: MATCHES_REGEX
+              parameters:
+                - '\"(Certificate expiry: The certificate of TLS context 0 will expire in (\d+) days\.)\"'
+              error_handler: CUSTOM_VALUE
+            - type: REGEX
+              parameters:
+                - '\"(Certificate expiry: The certificate of TLS context 0 will expire in (\d+) days\.)\"'
+                - \2
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '-1'
+          master_item:
+            key: audiocodes.api.alarms
+          tags:
+            - tag: component
+              value: cert
+            - tag: component
+              value: health
+          triggers:
+            - uuid: 2d04fc8c62484109aaf003b9757a53fb
+              expression: 'last(/AudioCodes Gateway and SBC/audiocodes.api.alarms.cert_expiry) <= {$CERT.EXPIRY.WARN}'
+              name: 'Certificate expires soon'
+              opdata: 'expires in {ITEM.LASTVALUE} days'
+              priority: HIGH
+              tags:
+                - tag: scope
+                  value: security
+            - uuid: 7ae7469e8d5343588e7d8f8039fb3745
+              expression: 'last(/AudioCodes Gateway and SBC/audiocodes.api.alarms.cert_expiry) > 0'
+              name: 'Certificate expires soon'
+              opdata: 'expires in {ITEM.LASTVALUE} days'
+              priority: WARNING
+              dependencies:
+                - name: 'Certificate expires soon'
+                  expression: 'last(/AudioCodes Gateway and SBC/audiocodes.api.alarms.cert_expiry) <= {$CERT.EXPIRY.WARN}'
+              tags:
+                - tag: scope
+                  value: security
+        - uuid: 248444f0e11a444a8e9717086d5e1576
+          name: 'Audiocodes REST API - KPI'
+          type: HTTP_AGENT
+          key: audiocodes.api.kpi
+          history: 7d
+          trends: '0'
+          status: DISABLED
+          value_type: TEXT
+          authtype: BASIC
+          username: '{$AUDIOCODES_USER}'
+          password: '{$AUDIOCODES_PASSWORD}'
+          url: 'https://{HOST.CONN}/api/v1/performanceMonitoring'
+          tags:
+            - tag: component
+              value: raw
+        - uuid: 9e55e402167f414687a039620692be23
+          name: 'Audiocodes REST API - Status'
+          type: HTTP_AGENT
+          key: audiocodes.api.status
+          history: '0'
+          trends: '0'
+          value_type: TEXT
+          authtype: BASIC
+          username: '{$AUDIOCODES_USER}'
+          password: '{$AUDIOCODES_PASSWORD}'
+          url: 'https://{HOST.CONN}/api/v1/status'
+          tags:
+            - tag: component
+              value: raw
+        - uuid: 5451144b006946c8a9c9adfaaf5fbffd
+          name: 'HA Status'
+          type: DEPENDENT
+          key: audiocodes.api.status.highAvailability
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.highAvailability
+          master_item:
+            key: audiocodes.api.status
+          tags:
+            - tag: component
+              value: health
+            - tag: component
+              value: system
+          triggers:
+            - uuid: dac9ba302a424ba58f938ddc740e8770
+              expression: 'last(/AudioCodes Gateway and SBC/audiocodes.api.status.highAvailability)<>"Operational"'
+              name: 'HA is not operational'
+              priority: WARNING
+        - uuid: 97b964897c88442c9a0951f8711c5276
+          name: LocalTimeStamp
+          type: DEPENDENT
+          key: audiocodes.api.status.localTimeStamp
+          delay: '0'
+          history: 2w
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.localTimeStamp
+          master_item:
+            key: audiocodes.api.status
+          tags:
+            - tag: component
+              value: system
+        - uuid: 7b13e026a8f3478d8a99fa9a1ecf9b08
+          name: MAC-Address
+          type: DEPENDENT
+          key: audiocodes.api.status.macAddress
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          inventory_link: MACADDRESS_A
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.macAddress
+          master_item:
+            key: audiocodes.api.status
+          tags:
+            - tag: component
+              value: system
+        - uuid: 5be56dbc80f74ae4b2467e9d9c2b542b
+          name: 'Operational State'
+          type: DEPENDENT
+          key: audiocodes.api.status.operationalState
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.operationalState
+          master_item:
+            key: audiocodes.api.status
+          tags:
+            - tag: component
+              value: health
+            - tag: component
+              value: system
+        - uuid: 656cc7a2d62f485e8516728e5bb2678e
+          name: Model
+          type: DEPENDENT
+          key: audiocodes.api.status.productType
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          inventory_link: MODEL
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.productType
+          master_item:
+            key: audiocodes.api.status
+          tags:
+            - tag: component
+              value: system
+        - uuid: 9c2ea5f60619437dba1bdb2a61ac8ef1
+          name: 'Protocol Type'
+          type: DEPENDENT
+          key: audiocodes.api.status.protocolType
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.protocolType
+          master_item:
+            key: audiocodes.api.status
+          tags:
+            - tag: component
+              value: system
+        - uuid: 10e2fd7468574b5dace4963f9ccad5ab
+          name: 'Reset needed'
+          type: DEPENDENT
+          key: audiocodes.api.status.resetneeded
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          valuemap:
+            name: 'True/False to OK'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.resetNeeded
+          master_item:
+            key: audiocodes.api.status
+          tags:
+            - tag: component
+              value: system
+        - uuid: 657ef129c1d14099be9a6fd5708fe374
+          name: 'Save needed'
+          type: DEPENDENT
+          key: audiocodes.api.status.saveneeded
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          valuemap:
+            name: 'True/False to OK'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.saveNeeded
+          master_item:
+            key: audiocodes.api.status
+          tags:
+            - tag: component
+              value: system
+        - uuid: 02a4272adf0e4d13b661a16e9c2b260d
+          name: Serial-Number
+          type: DEPENDENT
+          key: audiocodes.api.status.serialNumber
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          inventory_link: SERIALNO_A
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.serialNumber
+          master_item:
+            key: audiocodes.api.status
+          tags:
+            - tag: component
+              value: system
+          triggers:
+            - uuid: bc94737ed9594154ad2604d1d85f6082
+              expression: 'change(/AudioCodes Gateway and SBC/audiocodes.api.status.serialNumber) and length(last(/AudioCodes Gateway and SBC/audiocodes.api.status.serialNumber))>0'
+              name: 'Device has been replaced'
+              opdata: 'new serial: {ITEM.LASTVALUE}'
+              priority: INFO
+              manual_close: 'YES'
+        - uuid: 5bcdf82564a44fc1aa9b3c0ebef270dc
+          name: Uptime
+          type: DEPENDENT
+          key: audiocodes.api.status.systemUpTime
+          delay: '0'
+          history: 2w
+          trends: '0'
+          units: uptime
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.systemUpTime
+          master_item:
+            key: audiocodes.api.status
+          tags:
+            - tag: component
+              value: system
+        - uuid: 37aeb2fa45834347bb6f500dbe1afc19
+          name: 'Firmware Version'
+          type: DEPENDENT
+          key: audiocodes.api.status.versionID
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          inventory_link: SOFTWARE
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.versionID
+          master_item:
+            key: audiocodes.api.status
+          tags:
+            - tag: component
+              value: system
+          triggers:
+            - uuid: fd7cd4cb04f64848a1500c2168cdb3eb
+              expression: 'change(/AudioCodes Gateway and SBC/audiocodes.api.status.versionID) and length(last(/AudioCodes Gateway and SBC/audiocodes.api.status.versionID))>0'
+              name: 'Firmware Version changed'
+              priority: INFO
+              manual_close: 'YES'
+      macros:
+        - macro: '{$AUDIOCODES_PASSWORD}'
+          type: SECRET_TEXT
+        - macro: '{$AUDIOCODES_USER}'
+          value: Admin
+        - macro: '{$CERT.EXPIRY.WARN}'
+          value: '14'
+      valuemaps:
+        - uuid: aa4ee47a3bfd4c0683403c23f42caa97
+          name: 'True/False to OK'
+          mappings:
+            - value: 'false'
+              newvalue: OK
+            - type: DEFAULT
+              newvalue: 'not OK'
+  triggers:
+    - uuid: 9067c74c76024ca881cca435475b1392
+      expression: '(last(/AudioCodes Gateway and SBC/system.name,#1)<>last(/AudioCodes Gateway and SBC/system.name,#2))=1 and length(last(/AudioCodes Gateway and SBC/system.name))>0'
+      name: 'System name has changed (new name: {ITEM.VALUE})'
+      priority: INFO
+      description: 'System name has changed. Ack to close.'
+      manual_close: 'YES'
